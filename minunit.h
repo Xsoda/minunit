@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2012 David Siñuela Pastor, siu.4coders@gmail.com
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
@@ -8,10 +8,10 @@
  * distribute, sublicense, and/or sell copies of the Software, and to
  * permit persons to whom the Software is furnished to do so, subject to
  * the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -35,9 +35,9 @@
 #define _POSIX_C_SOURCE 200112L
 #endif
 
-#include <unistd.h>	/* POSIX flags */
-#include <time.h>	/* clock_gettime(), time() */
-#include <sys/time.h>	/* gethrtime(), gettimeofday() */
+#include <unistd.h>      /* POSIX flags */
+#include <time.h>        /* clock_gettime(), time() */
+#include <sys/time.h>    /* gethrtime(), gettimeofday() */
 #include <sys/resource.h>
 #include <sys/times.h>
 
@@ -59,7 +59,7 @@
 #define MINUNIT_EPSILON 1E-12
 
 #ifdef __cplusplus
-	extern "C" {
+extern "C" {
 #endif
 
 /*  Misc. counters */
@@ -96,8 +96,8 @@ double mu_timer_cpu();
       minunit_setup = setup_fun;                                     \
       minunit_teardown = teardown_fun;                               \
    } while (0)
-           
-      /*  Test runner */
+
+/*  Test runner */
 #define MU_RUN_TEST(test)                                   \
    do {                                                     \
       if (minunit_real_timer==0 && minunit_real_timer==0) { \
