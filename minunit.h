@@ -52,6 +52,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 
 /*  Maximum length of last message */
 #define MINUNIT_MESSAGE_LEN 1024
@@ -67,10 +68,6 @@ extern int minunit_run;
 extern int minunit_assert;
 extern int minunit_fail;
 extern int minunit_status;
-
-/*  Timers */
-extern double minunit_real_timer;
-extern double minunit_proc_timer;
 
 /*  Last message */
 extern char minunit_last_message[MINUNIT_MESSAGE_LEN];
@@ -100,10 +97,6 @@ double mu_timer_cpu();
 /*  Test runner */
 #define MU_RUN_TEST(test)                                   \
    do {                                                     \
-      if (minunit_real_timer==0 && minunit_real_timer==0) { \
-         minunit_real_timer = mu_timer_real();              \
-         minunit_proc_timer = mu_timer_cpu();               \
-      }                                                     \
       if (minunit_setup) (*minunit_setup)();                \
       minunit_status = 0;                                   \
       test();                                               \
@@ -183,5 +176,28 @@ double mu_timer_cpu();
       }                                                                 \
    } while (0)
 
+#define mu_assert_string_eq(expected, result)                           \
+   do {                                                                 \
+      char* minunit_tmp_e;                                              \
+      char* minunit_tmp_r;                                              \
+      minunit_assert++;                                                 \
+      if (!expected) {                                                  \
+         minunit_tmp_e = "<null pointer>";                              \
+      } else {                                                          \
+         minunit_tmp_e = (expected);                                    \
+      }                                                                 \
+      if (!result) {                                                    \
+         minunit_tmp_r = "<null pointer>";                              \
+      } else {                                                          \
+         minunit_tmp_r = (result);                                      \
+      }                                                                 \
+      if(strcmp(minunit_tmp_e, minunit_tmp_r)) {                        \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: '%s' expected but was '%s'", __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r); \
+         minunit_status = 1;                                            \
+         return;                                                        \
+      } else {                                                          \
+         printf(".");                                                   \
+      }                                                                 \
+   } while (0)
 
 #endif /* __MINUNIT_H__ */

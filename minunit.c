@@ -7,10 +7,6 @@ int minunit_assert = 0;
 int minunit_fail = 0;
 int minunit_status = 0;
 
-/*  Timers */
-double minunit_real_timer = 0;
-double minunit_proc_timer = 0;
-
 /*  Last message */
 char minunit_last_message[MINUNIT_MESSAGE_LEN];
 
@@ -192,27 +188,31 @@ double mu_timer_cpu()
       minunit_teardown = NULL;                  \
    } while (0)
 
-/*  Report */
-#define MU_REPORT()                                                     \
-   do {                                                                 \
-      double minunit_end_real_timer;                                    \
-      double minunit_end_proc_timer;                                    \
-      printf("\n\n%d tests, %d assertions, %d failures\n", minunit_run, minunit_assert, minunit_fail); \
-      minunit_end_real_timer = mu_timer_real();                         \
-      minunit_end_proc_timer = mu_timer_cpu();                          \
-      printf("\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n", \
-             minunit_end_real_timer - minunit_real_timer,               \
-             minunit_end_proc_timer - minunit_proc_timer);              \
-   } while (0)
-
+/* test suite define */
 #define XX(name) extern void name();
 MINUINT_SUITE_MAP(XX)
 #undef XX
 
 int main(int argc, char **argv) {
+   double real_timer;
+   double proc_timer;
+   double end_real_timer;
+   double end_proc_timer;
+
+   real_timer = mu_timer_real();
+   proc_timer = mu_timer_cpu();
+
 #define XX(name) MU_RUN_SUITE(name);
    MINUINT_SUITE_MAP(XX)
 #undef XX
-   MU_REPORT();
+
+   /* Report */
+   end_real_timer = mu_timer_real();
+   end_proc_timer = mu_timer_cpu();
+   printf("\n\n%d tests, %d assertions, %d failures\n",
+          minunit_run, minunit_assert, minunit_fail);
+   printf("\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n",  
+          end_real_timer - real_timer, end_proc_timer - proc_timer);              
+   
    return 0;
 }
