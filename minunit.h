@@ -200,4 +200,16 @@ double mu_timer_cpu();
       }                                                                 \
    } while (0)
 
+#define mu_assert_memory_eq(expected, result, len)                      \
+   do {                                                                 \
+      minunit_assert++;                                                 \
+      if(memcmp((expected), (result), (len))) {                         \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: '<%p>.%d' not equal with '<%p>.%d'", __func__, __FILE__, __LINE__, (expected), (len), (result), (len)); \
+         minunit_status = 1;                                            \
+         return;                                                        \
+      } else {                                                          \
+         printf(".");                                                   \
+      }                                                                 \
+   } while (0)
+
 #endif /* __MINUNIT_H__ */
