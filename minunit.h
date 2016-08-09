@@ -116,7 +116,9 @@ double mu_timer_cpu();
    do {                                                                 \
       minunit_assert++;                                                 \
       if (!(test)) {                                                    \
-         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %s", __func__, __FILE__, __LINE__, #test); \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN,            \
+                  "%s failed:\n\t%s:%d: %s",                            \
+                  __func__, __FILE__, __LINE__, #test);                 \
          minunit_status = 1;                                            \
          return;                                                        \
       } else {                                                          \
@@ -127,7 +129,9 @@ double mu_timer_cpu();
 #define mu_fail(message)                                                \
    do {                                                                 \
       minunit_assert++;                                                 \
-      snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %s", __func__, __FILE__, __LINE__, message); \
+      snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN,               \
+               "%s failed:\n\t%s:%d: %s",                               \
+               __func__, __FILE__, __LINE__, message);                  \
       minunit_status = 1;                                               \
       return;                                                           \
    } while (0)
@@ -136,7 +140,9 @@ double mu_timer_cpu();
    do {                                                                 \
       minunit_assert++;                                                 \
       if (!(test)) {                                                    \
-         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %s", __func__, __FILE__, __LINE__, message); \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN,            \
+                  "%s failed:\n\t%s:%d: %s",                            \
+                  __func__, __FILE__, __LINE__, message);               \
          minunit_status = 1;                                            \
          return;                                                        \
       } else {                                                          \
@@ -152,7 +158,9 @@ double mu_timer_cpu();
       minunit_tmp_e = (expected);                                       \
       minunit_tmp_r = (result);                                         \
       if (minunit_tmp_e != minunit_tmp_r) {                             \
-         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %d expected but was %d", __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r); \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN,            \
+                  "%s failed:\n\t%s:%d: %d expected but was %d",        \
+                  __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r); \
          minunit_status = 1;                                            \
          return;                                                        \
       } else {                                                          \
@@ -168,7 +176,9 @@ double mu_timer_cpu();
       minunit_tmp_e = (expected);                                       \
       minunit_tmp_r = (result);                                         \
       if (fabs(minunit_tmp_e-minunit_tmp_r) > MINUNIT_EPSILON) {        \
-         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: %g expected but was %g", __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r); \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN,            \
+                  "%s failed:\n\t%s:%d: %g expected but was %g",        \
+                  __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r); \
          minunit_status = 1;                                            \
          return;                                                        \
       } else {                                                          \
@@ -191,8 +201,10 @@ double mu_timer_cpu();
       } else {                                                          \
          minunit_tmp_r = (result);                                      \
       }                                                                 \
-      if(strcmp(minunit_tmp_e, minunit_tmp_r)) {                        \
-         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: '%s' expected but was '%s'", __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r); \
+      if (strcmp(minunit_tmp_e, minunit_tmp_r)) {                       \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN,            \
+                  "%s failed:\n\t%s:%d: '%s' expected but was '%s'",    \
+                  __func__, __FILE__, __LINE__, minunit_tmp_e, minunit_tmp_r); \
          minunit_status = 1;                                            \
          return;                                                        \
       } else {                                                          \
@@ -203,8 +215,10 @@ double mu_timer_cpu();
 #define mu_assert_memory_eq(expected, result, len)                      \
    do {                                                                 \
       minunit_assert++;                                                 \
-      if(memcmp((expected), (result), (len))) {                         \
-         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN, "%s failed:\n\t%s:%d: '<%p>.%d' not equal with '<%p>.%d'", __func__, __FILE__, __LINE__, (expected), (len), (result), (len)); \
+      if (memcmp((expected), (result), (len))) {                        \
+         snprintf(minunit_last_message, MINUNIT_MESSAGE_LEN,            \
+                  "%s failed:\n\t%s:%d: '<%p>.%d' not equal with '<%p>.%d'", \
+                  __func__, __FILE__, __LINE__, (expected), (len), (result), (len)); \
          minunit_status = 1;                                            \
          return;                                                        \
       } else {                                                          \

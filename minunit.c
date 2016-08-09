@@ -1,5 +1,6 @@
 #include "minunit.h"
 #include "minsuite.h"
+#include <time.h>
 
 /*  Misc. counters */
 int minunit_run = 0;
@@ -211,8 +212,8 @@ int main(int argc, char **argv) {
    end_proc_timer = mu_timer_cpu();
    printf("\n\n%d tests, %d assertions, %d failures\n",
           minunit_run, minunit_assert, minunit_fail);
-   printf("\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n",  
-          end_real_timer - real_timer, end_proc_timer - proc_timer);              
-   
+   printf("\nFinished in %.8f seconds (real) %.8f seconds (proc)\n\n",
+          end_real_timer - real_timer, end_proc_timer - proc_timer);
+
    return 0;
 }
